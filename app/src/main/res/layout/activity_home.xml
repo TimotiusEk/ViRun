@@ -7,7 +7,7 @@
     android:background="@drawable/wood"
     android:gravity="center_horizontal"
     android:padding="10dp"
-    tools:context="com.example.timotiusek.runcompanionvr.HomeActivity"
+    tools:context="com.example.timotiusek.runcompanionvr.Activity.HomeActivity"
     android:orientation="vertical">
 
     <TextView
