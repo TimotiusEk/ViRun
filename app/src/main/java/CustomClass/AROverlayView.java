@@ -24,7 +24,25 @@ public class AROverlayView extends View {
 
     Context context;
     private float[] rotatedProjectionMatrix = new float[16];
+
+    public Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
     private Location currentLocation;
+
+    public List<ARPoint> getArPoints() {
+        return arPoints;
+    }
+
+    public void setArPoints(List<ARPoint> arPoints) {
+        this.arPoints = arPoints;
+    }
+
     private List<ARPoint> arPoints;
 
 
@@ -74,7 +92,7 @@ public class AROverlayView extends View {
             Matrix.multiplyMV(cameraCoordinateVector, 0, rotatedProjectionMatrix, 0, pointInENU, 0);
 
             // cameraCoordinateVector[2] is z, that always less than 0 to display on right position
-            // if z > 0, the point will display on the opposite
+            // if z > 0, the currentPoint will display on the opposite
             if (cameraCoordinateVector[2] < 0) {
                 float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
                 float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        tools:context="com.example.timotiusek.runcompanionvr.Activity.EventListActivity">
+
+        <TextView
+            android:id="@+id/event_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:text="Event"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/top_left_alsut"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/event_tv"
+            android:layout_marginTop="8dp"
+            android:layout_toStartOf="@+id/event_by_mall_alsut"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:id="@+id/event_by_mall_alsut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/event_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:text="Event by Mall Alam Sutera" />
+
+        <View
+            android:id="@+id/top_right_alsut"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/event_tv"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/event_by_mall_alsut"
+            android:background="@android:color/black" />
+
+        <View
+            android:id="@+id/left_alsut"
+            android:layout_width="1dp"
+            android:layout_height="475dp"
+            android:layout_alignStart="@+id/top_left_alsut"
+            android:layout_below="@id/top_left_alsut"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/black" />
+
+        <View
+            android:id="@+id/right_alsut"
+            android:layout_width="1dp"
+            android:layout_height="475dp"
+            android:layout_alignEnd="@+id/top_right_alsut"
+            android:layout_below="@id/top_left_alsut"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/halloween_pic"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/event_by_mall_alsut"
+            android:layout_toEndOf="@id/left_alsut"
+            android:layout_toStartOf="@+id/right_alsut"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/halloween_unclicked_2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/halloween_pic"
+            android:layout_alignEnd="@id/halloween_pic"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="20 Oktober 2017"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:id="@+id/halloween_event_date"/>
+
+        <ImageView
+            android:id="@+id/christmas_pic"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/halloween_pic"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@id/left_alsut"
+            android:layout_toStartOf="@+id/right_alsut"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/christmas_unclicked_2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/christmas_pic"
+            android:layout_alignEnd="@id/christmas_pic"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="21 December 2017"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:id="@+id/christmas_event_date"/>
+
+        <View
+            android:id="@+id/bottom_alsut"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignEnd="@+id/right_alsut"
+            android:layout_alignStart="@id/left_alsut"
+            android:layout_below="@+id/left_alsut"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/black" />
+
+        <!-- event by SGU -->
+        <View
+            android:id="@+id/top_left_sgu"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/bottom_alsut"
+            android:layout_marginTop="8dp"
+            android:layout_toStartOf="@+id/event_by_sgu"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:id="@+id/event_by_sgu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bottom_alsut"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:text="Event by SGU" />
+
+        <View
+            android:id="@+id/top_right_sgu"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/bottom_alsut"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/event_by_sgu"
+            android:background="@android:color/black" />
+
+        <View
+            android:id="@+id/left_sgu"
+            android:layout_width="1dp"
+            android:layout_height="250dp"
+            android:layout_alignStart="@+id/top_left_sgu"
+            android:layout_below="@id/top_left_sgu"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/black" />
+
+        <View
+            android:id="@+id/right_sgu"
+            android:layout_width="1dp"
+            android:layout_height="250dp"
+            android:layout_alignEnd="@+id/top_right_sgu"
+            android:layout_below="@id/top_left_sgu"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/oktfest_pic"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/event_by_sgu"
+            android:layout_toEndOf="@id/left_sgu"
+            android:layout_toStartOf="@+id/right_sgu"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/octfest_unclicked" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/oktfest_pic"
+            android:layout_alignEnd="@id/oktfest_pic"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="25 Oktober 2017"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:id="@+id/oktfest_event_date"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignEnd="@+id/right_sgu"
+            android:layout_alignStart="@id/left_sgu"
+            android:layout_below="@+id/left_sgu"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/black" />
+    </RelativeLayout>
+</ScrollView>
+

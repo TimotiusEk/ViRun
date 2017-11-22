@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_ar"
     android:layout_width="match_parent"
@@ -9,14 +9,15 @@
     <FrameLayout
         android:id="@+id/camera_container_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/timer_and_achievement_layout">
 
         <SurfaceView
             android:id="@+id/surface_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>
-
+    <!---->
     <TextView
         android:id="@+id/tv_current_location"
         android:layout_width="wrap_content"
@@ -24,4 +25,174 @@
         android:layout_margin="20dp"
         android:text="GPS is loading..."
         android:textColor="@android:color/white" />
-</FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/timer_and_achievement_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time: "
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/show_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="00"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/show_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="00"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/trophy_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/trophy" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:layout_gravity="top"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:id="@+id/achievement_layout"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Achievement"
+            android:id="@+id/achievement_tv"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="20sp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/achievement_tv"
+            android:id="@+id/line_below_achievement"
+            android:background="@android:color/black"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/line_right_achievement"
+            android:layout_alignBottom="@id/line_below_achievement"
+            android:layout_toStartOf="@+id/exit_btn"
+            android:layout_marginEnd="50dp"
+            android:background="@android:color/black"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:textSize="25sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/exit_btn"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check point 1 = "
+            android:layout_below="@id/line_below_achievement"
+            android:id="@+id/checkpoint_1"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Umbrella"
+            android:layout_below="@id/line_below_achievement"
+            android:layout_toEndOf="@id/checkpoint_1"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check point 2 = "
+            android:layout_below="@id/checkpoint_1"
+            android:id="@+id/checkpoint_2"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_below="@id/checkpoint_1"
+            android:layout_toEndOf="@id/checkpoint_2"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check point 3 = "
+            android:layout_below="@id/checkpoint_2"
+            android:id="@+id/checkpoint_3"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="15dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_below="@id/checkpoint_2"
+            android:layout_toEndOf="@id/checkpoint_3"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

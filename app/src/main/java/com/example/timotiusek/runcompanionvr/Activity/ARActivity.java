@@ -1,4 +1,5 @@
 package com.example.timotiusek.runcompanionvr.Activity;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -13,12 +14,14 @@ import android.location.LocationManager;
 import android.opengl.Matrix;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,8 @@ import com.example.timotiusek.runcompanionvr.R;
 
 import CustomClass.ARCamera;
 import CustomClass.AROverlayView;
+import Helper.TaskScheduler;
+import Model.ARPoint;
 
 public class ARActivity extends Activity implements SensorEventListener, LocationListener {
 
@@ -50,6 +55,12 @@ public class ARActivity extends Activity implements SensorEventListener, Locatio
     boolean isNetworkEnabled;
     boolean locationServiceAvailable;
 
+    private TextView showMinute;
+    private TextView showSecond;
+    private ImageView trophyBtn;
+    private TextView exitBtn;
+    private RelativeLayout achievementLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +71,62 @@ public class ARActivity extends Activity implements SensorEventListener, Locatio
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
         arOverlayView = new AROverlayView(this);
+
+        showMinute = (TextView) findViewById(R.id.show_minute);
+        showSecond = (TextView) findViewById(R.id.show_second);
+
+        final int[] second = {0};
+        final int[] minute = {0};
+
+        TaskScheduler timer = new TaskScheduler();
+        timer.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                if (!tvCurrentLocation.getText().equals("GPS is loading...")) {
+                    String secondToShow;
+                    String minuteToShow;
+                    if (second[0] == 60) {
+                        second[0] = 0;
+                        minute[0]++;
+                    }
+
+                    if (second[0] < 10) {
+                        secondToShow = "0" + second[0];
+                    } else {
+                        secondToShow = "" + second[0];
+                    }
+
+                    showSecond.setText(secondToShow);
+
+                    if (minute[0] < 10) {
+                        minuteToShow = "0" + minute[0];
+                    } else {
+                        minuteToShow = "" + minute[0];
+                    }
+                    showMinute.setText(minuteToShow);
+                    second[0]++;
+                }
+            }
+        },1000);
+        trophyBtn = (ImageView) findViewById(R.id.trophy_btn);
+        exitBtn = (TextView) findViewById(R.id.exit_btn);
+        achievementLayout = (RelativeLayout) findViewById(R.id.achievement_layout);
+
+        trophyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                achievementLayout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        exitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                achievementLayout.setVisibility(View.GONE);
+            }
+        });
+
+
     }
 
     @Override
@@ -118,12 +185,12 @@ public class ARActivity extends Activity implements SensorEventListener, Locatio
 
     private void initCamera() {
         int numCams = Camera.getNumberOfCameras();
-        if(numCams > 0){
-            try{
+        if (numCams > 0) {
+            try {
                 camera = Camera.open();
                 camera.startPreview();
                 arCamera.setCamera(camera);
-            } catch (RuntimeException ex){
+            } catch (RuntimeException ex) {
                 Toast.makeText(this, "Camera not found", Toast.LENGTH_LONG).show();
             }
         }
@@ -138,7 +205,7 @@ public class ARActivity extends Activity implements SensorEventListener, Locatio
     }
 
     private void releaseCamera() {
-        if(camera != null) {
+        if (camera != null) {
             camera.setPreviewCallback(null);
             camera.stopPreview();
             arCamera.setCamera(null);
@@ -178,19 +245,19 @@ public class ARActivity extends Activity implements SensorEventListener, Locatio
 
     private void initLocationService() {
 
-        if ( Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-            return  ;
+        if (Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
 
-        try   {
+        try {
             this.locationManager = (LocationManager) this.getSystemService(this.LOCATION_SERVICE);
 
             // Get GPS and network status
             this.isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             this.isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            if (!isNetworkEnabled && !isGPSEnabled)    {
+            if (!isNetworkEnabled && !isGPSEnabled) {
                 // cannot get location
                 this.locationServiceAvailable = false;
             }
@@ -201,38 +268,51 @@ public class ARActivity extends Activity implements SensorEventListener, Locatio
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                         MIN_TIME_BW_UPDATES,
                         MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                if (locationManager != null)   {
+                if (locationManager != null) {
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     updateLatestLocation();
                 }
             }
 
-            if (isGPSEnabled)  {
+            if (isGPSEnabled) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                         MIN_TIME_BW_UPDATES,
                         MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
-                if (locationManager != null)  {
+                if (locationManager != null) {
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     updateLatestLocation();
                 }
             }
-        } catch (Exception ex)  {
+        } catch (Exception ex) {
             Log.e(TAG, ex.getMessage());
 
         }
     }
 
     private void updateLatestLocation() {
-        if (arOverlayView !=null && location != null) {
+        if (arOverlayView != null && location != null) {
             arOverlayView.updateCurrentLocation(location);
-            tvCurrentLocation.setText(String.format("lat: %s \nlon: %s \naltitude: %s \n",
-                    location.getLatitude(), location.getLongitude(), location.getAltitude()));
         }
     }
 
     @Override
     public void onLocationChanged(Location location) {
+        for(int index = 0 ; index < arOverlayView.getArPoints().size() ; index++) {
+            String name = arOverlayView.getArPoints().get(index).getName();
+            Location locationDest = arOverlayView.getArPoints().get(index).getLocation();
+
+            if(index == 0) {
+                tvCurrentLocation.setText("Name: " + name + "\nDistance: " + location.distanceTo(locationDest) + " m");
+            }
+            else {
+                tvCurrentLocation.append("\n\nName: " + name + "\nDistance: " + location.distanceTo(locationDest) + " m");
+            }
+
+        }
+//        Log.d("Lat", String.valueOf(location.getLatitude()));
+//        Log.d("Long", String.valueOf(location.getLongitude()));
+//        tvCurrentLocation.setText("Lat: " + location.getLatitude() + "\nLong: " + location.getLongitude());
         updateLatestLocation();
     }
 
